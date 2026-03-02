@@ -1,34 +1,36 @@
-import 'dart:io';
+print("");
+print("CASE 4");
 
-void main() {
-  // Read input with fallback if user enters nothing
-  String name = stdin.readLineSync() ?? "Guest";
-  print(name);
+try {
+  int result = 12 ~/ 3;
+  print("The result is $result");
+} catch (e) {
+  print("The exception thrown is $e");
+} finally {
+  print("This is FINALLY Clause and is always executed.");
+}
 
-  // Null-aware operator (??=)
-  String? a;
-  a ??= "Guest";
-  print(a);
+print("");
+print("CASE 5");
 
-  // Safe length with null-aware access
-  String? s = stdin.readLineSync();
-  int? len = s?.length;
-  print(len);
+try {
+  depositMoney(-200);
+} on DepositException catch (e) {
+  print(e.errorMessage());
+} finally {
+  // Code
+}
+}
 
-  print("");
-  print("CASE 5");
-  try {
-    depositMoney(-200);
-  } catch (e) {
-    print(e);
-  } finally {
-    print("This will always execute");
+class DepositException implements Exception {
+  String errorMessage() {
+    return "You cannot enter amount less than 0";
   }
 }
 
 void depositMoney(int amount) {
-  if (amount <= 0) {
-    throw Exception("Amount must be greater than 0");
+  if (amount < 0) {
+    throw DepositException();   // `new` not needed
   }
-  print("Deposited: $amount");
 }
+// Output:
